@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 import os
 import cv2
-from scipy.misc import imresize
+
 from PIL import Image, ImageOps
 import random
 import sys
@@ -38,18 +38,20 @@ def extract_n_preprocess_dicom(path, size):
     """
     Extract DICOM image from path with preprocessing to size
     """
-    ds = cv2.imread(path)
-    ds = cv2.cvtColor(ds, cv2.COLOR_BGR2GRAY)
+    ds = extract_image(path)
+   
     ds = crop_to_square(ds, upsampling=True)
-    ds = imresize(ds, (size,size), "lanczos")
+    # ds = imresize(ds, (size,size), "lanczos")
+    ds = cv2.resize(ds, (size,size), interpolation = cv2.INTER_LANCZOS4 )
     return ds
 
 def extract_image(path):
     """
     Extract DICOM image from path
     """
-    ds = cv2.imread(path)
-    ds = cv2.cvtColor(ds, cv2.COLOR_BGR2GRAY)
+#    ds = cv2.imread(path)
+#    ds = cv2.cvtColor(ds, cv2.COLOR_BGR2GRAY)
+    ds = cv2.imread(path,cv2.IMREAD_ANYDEPTH|cv2.IMREAD_GRAYSCALE)
     return ds
 
 def augment_image_pair(image1, image2, size, output_path1, output_path2):
@@ -86,8 +88,7 @@ def extract_images(paths):
     """
     images = []
     for path in paths:
-        ds = cv2.imread(path)
-        ds = cv2.cvtColor(ds, cv2.COLOR_BGR2GRAY)
+        ds = extract_image(path)
         images.append(ds)
     return images
 
@@ -114,9 +115,10 @@ def extract_n_normalize_image(path):
     """
     Extract DICOM image from path
     """
-    ds = cv2.imread(path)
-    ds = cv2.cvtColor(ds, cv2.COLOR_BGR2GRAY)
-    return ds.astype(float)/255
+    ds = extract_image(path)
+
+    biggest = np.amax(ds)
+    return ds.astype(float)/biggest
 
 def get_batch(batch_size, size, x_filenames, y_filenames):
     X, y = shuffle(x_filenames, y_filenames)
@@ -135,3 +137,14 @@ def print_train_steps(current_step, total_steps):
     point = int(current_step / (total_steps * 0.05))
     sys.stdout.write("\r[" + "=" * point +  " " * (20 - point) + "] ---- Step {}/{} ----- ".format(current_step, total_steps) +  str(int(float(current_step) * 100 / total_steps)) + "%")
     sys.stdout.flush()
+
+
+def variable_to_cv2_image(varim):
+	"""
+    Converts array to an OpenCV image
+
+	Args:
+		varim: image array
+	"""
+	res = (varim*32767.).clip(0, 32767).astype(np.uint16)
+	return res

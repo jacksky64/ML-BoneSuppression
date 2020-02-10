@@ -1,3 +1,11 @@
+
+generate requirements with :
+conda list --export > requirements.txt
+
+generate new ewnviroment :
+conda create --name <env name> --file requirements.txt
+
+
 imreg-dft==2.0.0
 numpy==1.15.2
 opencv-python==3.4.3.18

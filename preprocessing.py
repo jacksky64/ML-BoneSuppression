@@ -1,14 +1,15 @@
 from __future__ import division
 from configparser import ConfigParser
 import argparse
-from utils import extract_image_path, extract_n_preprocess_dicom, check_and_create_dir, extract_image, augment_image_pair
+from utils import extract_image_path, extract_n_preprocess_dicom, check_and_create_dir, extract_image
+from augmentation import augmentImagePairPhantom
 import imreg_dft as ird
 import os
 import cv2
-from scipy.misc import imsave
 from multiprocessing.pool import Pool
 from itertools import product
 import numpy as np
+import random 
 
 def similarity(params):
     """
@@ -27,8 +28,8 @@ def similarity(params):
     source_image_path = os.path.join(source_out_dir, filename)
     target_image_path = os.path.join(target_out_dir, filename)
     if verbose: print("Saving %r .........." % source_image_path)
-    imsave(source_image_path, im0)
-    imsave(target_image_path, result['timg'])
+    cv2.imwrite(source_image_path, im0)
+    cv2.imwrite(target_image_path, result['timg'])
     if verbose: print("Saved %r .........." % source_image_path)
 
 def get_image_path_from(source_dir, target_dir):
@@ -76,13 +77,13 @@ def augmentation_pair(params):
     """
     Augmenting pair of images
     """
-    source_image_path, target_image_path, size, source_out_path, target_out_path, verbose = params
+    source_image_path, target_image_path, size, source_out_path, target_out_path, augment, verbose = params
     source_image = extract_image(source_image_path)
     target_image = extract_image(target_image_path)
     filename = os.path.basename(os.path.normpath(source_image_path))
     if verbose:
         print("Augmenting image %r ..." % filename)
-    augment_image_pair(source_image, target_image, size, source_out_path, target_out_path)
+    augmentImagePairPhantom(source_image, target_image, size, source_out_path, target_out_path, augment)
     if verbose:
         print("Augmented image %r ..." % filename)
 
@@ -104,12 +105,16 @@ def augmentation(verbose, num_threads, source_dir, target_dir, augmentation_seed
     else:
         pool = Pool()
     job_args = []
-    for seed in range(augmentation_seed):
-        for i in range(len(source_images)):
-            image_name = '%r_%r.png' % (seed, i)
+    for i in range(len(source_images)):
+        for seed in range(augmentation_seed):
+            image_name = 'i%r_a%r.png' % (i, seed)
             source_out_path = os.path.join(source_out_dir, image_name)
             target_out_path = os.path.join(target_out_dir, image_name)
-            job_args.append((source_images[i], target_images[i], size, source_out_path, target_out_path, verbose))
+            if num_threads==1: 
+                augmentation_pair((source_images[i], target_images[i], size, source_out_path, target_out_path, seed!=0, verbose))
+            else: 
+                job_args.append((source_images[i], target_images[i], size, source_out_path, target_out_path, seed!=0, verbose))
+
     pool.map(augmentation_pair, job_args)
     pool.close()
     pool.join()
@@ -121,6 +126,9 @@ def main(args):
     verbose = cp["DATA"].getboolean("verbose")
     num_threads = cp["DATA"].getint("num_threads")
     image_size = cp["DATA"].getint("image_size")
+
+    # for reproducibility
+    random.seed(0)
 
     # Data registration
     source_dir = cp["REGISTRATION"].get("source_dir")

@@ -1,0 +1,96 @@
+{
+  "version": "0.2.1",
+  "defaults": {},
+  "configurations": [
+    {
+      "type": "python",
+      "interpreter": "(default)",
+      "interpreterArguments": "",
+      "scriptArguments": "--input i_01.png --output o_01.png",
+      "env": {},
+      "nativeDebug": false,
+      "webBrowserUrl": "",
+      "project": "test.py",
+      "name": "test.py"
+    },
+    {
+      "type": "python",
+      "interpreter": "(default)",
+      "interpreterArguments": "",
+      "scriptArguments": "--input i_02.png --output o_02.png",
+      "env": {},
+      "nativeDebug": false,
+      "webBrowserUrl": "",
+      "project": "test.py",
+      "name": "test2.py"
+    },
+    {
+      "type": "python",
+      "interpreter": "(default)",
+      "interpreterArguments": "",
+      "scriptArguments": "--input i_03.png --output o_03.png",
+      "env": {},
+      "nativeDebug": false,
+      "webBrowserUrl": "",
+      "project": "test.py",
+      "name": "test3.py"
+    },
+    {
+      "type": "python",
+      "interpreter": "(default)",
+      "interpreterArguments": "",
+      "scriptArguments": "--config ./config/data_preprocessing_phantom.cfg",
+      "env": {},
+      "nativeDebug": false,
+      "webBrowserUrl": "",
+      "project": "preprocessing.py",
+      "name": "preprocessing.py"
+    },
+    {
+      "type": "python",
+      "interpreter": "(default)",
+      "interpreterArguments": "",
+      "scriptArguments": "--config  ./config/train_phantom.cfg",
+      "env": {},
+      "nativeDebug": false,
+      "webBrowserUrl": "",
+      "project": "train.py",
+      "name": "train.py"
+    },
+    {
+      "type": "python",
+      "interpreter": "(default)",
+      "interpreterArguments": "",
+      "scriptArguments": "--model D:/DEDigitecPhantom/output1024/session_1000/model-32000 --input i_03.png --output o_03.png",
+      "env": {},
+      "nativeDebug": false,
+      "webBrowserUrl": "",
+      "project": "test.py",
+      "name": "testModel1024.py"
+    },
+    {
+      "type": "python",
+      "interpreter": "(default)",
+      "interpreterArguments": "",
+      "scriptArguments": "--model ./modelDigitec_1000/model-120000 --config ./config/train_phantom.cfg --input D:/DEDigitecPhantom/augmented/source/i0_a0.png --output D:\\DEDigitecPhantom\\output\\session_1000\\output/o0_a0.png",
+      "env": {},
+      "nativeDebug": false,
+      "webBrowserUrl": "",
+      "project": "test.py",
+      "name": "testDigitec.py"
+    },   
+    {
+      "type": "python",
+      "interpreter": "(default)",
+      "interpreterArguments": "",
+      "scriptArguments": "",
+      "env": {},
+      "nativeDebug": false,
+      "webBrowserUrl": "",
+      "project": "pi2pix.py",
+      "name": "pi2pix.py"
+    }
+  ]
+}
+
+

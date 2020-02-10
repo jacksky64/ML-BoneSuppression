@@ -1,9 +1,12 @@
-import tensorflow as tf
-from utils import check_and_create_dir, print_train_steps, get_batch, extract_image_path, extract_n_normalize_image
+# import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
+from utils import check_and_create_dir, print_train_steps, get_batch, extract_image_path, extract_n_normalize_image, variable_to_cv2_image
 import os
 import numpy as np
 import cv2
-from scipy.misc import imsave
+
 
 class AELikeModel:
     """
@@ -143,4 +146,6 @@ class AELikeModel:
         sess, _ = self.init_session()
         y_image = sess.run(self.Y, feed_dict={self.X: x_image})
         encoded_image = y_image.reshape((self.image_size, self.image_size))
-        imsave(output_image, encoded_image)
+        outimg = variable_to_cv2_image(encoded_image)
+        cv2.imwrite(output_image, outimg)
+
