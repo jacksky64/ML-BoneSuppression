@@ -72,12 +72,12 @@
       "type": "python",
       "interpreter": "(default)",
       "interpreterArguments": "",
-      "scriptArguments": "--model ./modelDigitec_1000/model-120000 --config ./config/train_phantom.cfg --input D:/DEDigitecPhantom/augmented/source/i0_a0.png --output D:\\DEDigitecPhantom\\output\\session_1000\\output/o0_a0.png",
+      "scriptArguments": "--model ./modelDigitec_1000/model-120000 --config ./config/train_phantom.cfg --input D:/DEDigitecPhantom/augmented/source/i0_a4.png --output D:\\DEDigitecPhantom\\output\\session_1000\\output/o0_a4.png",
       "env": {},
       "nativeDebug": false,
       "webBrowserUrl": "",
       "project": "test.py",
-      "name": "testDigitec.py"
+      "name": "testDigitec1440.py"
     },   
     {
       "type": "python",
