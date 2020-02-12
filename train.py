@@ -24,6 +24,7 @@ def main(args):
     batch_size = cp["TRAIN"].getint("batch_size")
     verbose = cp["TRAIN"].getboolean("verbose")
 
+
     # Training
     trained_model = None
     if use_trained_model:

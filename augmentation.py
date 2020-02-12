@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from albumentations import (
     Compose, ToFloat, FromFloat, RandomRotate90, Flip, HorizontalFlip, OneOf, MotionBlur, MedianBlur, Blur,
     ShiftScaleRotate, OpticalDistortion, GridDistortion, RandomBrightnessContrast,Transpose,IAAAdditiveGaussianNoise,
-    HueSaturationValue,GaussNoise,IAAPiecewiseAffine,CLAHE,IAASharpen,IAAEmboss
+    HueSaturationValue,GaussNoise,IAAPiecewiseAffine,CLAHE,IAASharpen,IAAEmboss,RandomBrightness
 )
 
 def strong_tiff_aug(p=.5):
@@ -83,6 +83,8 @@ def light_aug(p=1):
         # all values lie in the required range [0.0, 1.0].
         ToFloat(),
         
+        RandomBrightness(limit=(0,0.2), p=0.2),
+
         # Alternatively, you can specify the maximum possible value for your input
         # and all values will be divided by it instead of using a predefined value
         # for a specific data type.       
@@ -91,7 +93,7 @@ def light_aug(p=1):
         # Then we will apply augmentations
         HorizontalFlip(p=0.1),
 
-        ShiftScaleRotate(shift_limit=1/64, scale_limit=0.1, rotate_limit=15, p=0.9),
+        ShiftScaleRotate(shift_limit=1/14, scale_limit=0.1, rotate_limit=15, p=0.9),
         
         OpticalDistortion(distort_limit=0.1, shift_limit=0.05, p=0.5),
        

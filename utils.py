@@ -116,7 +116,6 @@ def extract_n_normalize_image(path):
     Extract DICOM image from path
     """
     ds = extract_image(path)
-
     biggest = np.amax(ds)
     return ds.astype(float)/biggest
 

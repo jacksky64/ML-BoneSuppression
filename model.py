@@ -93,6 +93,8 @@ class AELikeModel:
         """
         Train data
         """
+        print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+
         # Check output directory
         check_and_create_dir(output_model)
 
