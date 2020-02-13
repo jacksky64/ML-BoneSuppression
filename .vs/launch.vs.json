@@ -89,6 +89,17 @@
       "webBrowserUrl": "",
       "project": "pi2pix.py",
       "name": "pi2pix.py"
+    },
+    {
+      "type": "python",
+      "interpreter": "(default)",
+      "interpreterArguments": "",
+      "scriptArguments": "--model D:\\DEDigitecPhantom\\output_Opt_1024\\session_1000\\model-120000  --input D:\\DEDigitecPhantom\\augmented_Opt_1024\\source\\i324_a2.png --output D:\\DEDigitecPhantom\\output_Opt_1024\\session_1000\\test\\o324_a2.png",
+      "env": {},
+      "nativeDebug": false,
+      "webBrowserUrl": "",
+      "project": "test.py",
+      "name": "test_Opt_1024.py"
     }
   ]
 }

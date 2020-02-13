@@ -109,6 +109,8 @@ class AELikeModel:
         tf.summary.scalar('Loss', self.cost)
         tf.summary.image('BSE', self.Y)
         tf.summary.image('Ground truth', self.Y_clear)
+        tf.summary.image('Input', self.X)
+        
         merged = tf.summary.merge_all()
 
         sess, saver = self.init_session()
