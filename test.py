@@ -12,7 +12,7 @@ def main(args):
     output_image = args.output
     image_size = cp["TRAIN"].getint("image_size")
     alpha = cp["TRAIN"].getfloat("alpha")
-    model = AELikeModel(image_size, alpha,False, model_path)
+    model = AELikeModel(image_size, 1, alpha,False, model_path)
     model.test(input_image, output_image)
 
 if __name__ == '__main__':

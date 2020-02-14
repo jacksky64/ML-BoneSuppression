@@ -29,7 +29,7 @@ def main(args):
     trained_model = None
     if use_trained_model:
         trained_model = cp["TRAIN"].get("trained_model")
-    model = AELikeModel(image_size, alpha,verbose, trained_model)
+    model = AELikeModel(image_size, batch_size, alpha,verbose, trained_model)
     model.train(source_folder, target_folder, epochs, train_steps, learning_rate, epochs_to_reduce_lr, reduce_lr, output_model, output_log, batch_size)
 
 if __name__ == '__main__':

@@ -60,10 +60,15 @@ import tensorflow as tf
 
 import os
 import time
+import cv2
 
 from matplotlib import pyplot as plt
 from IPython import display
 
+# path = 'D:/DEDigitecPhantom/augmented/source/i0_a0.png'
+# ds = cv2.imread(path)
+# cv2.imwrite('e:/temp/p1.png', ds)
+# ds = cv2.cvtColor(ds, cv2.COLOR_BGR2GRAY)
 
 # %%
 # get_ipython().system('pip install -q -U tensorboard')
