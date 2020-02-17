@@ -63,13 +63,6 @@ class AELikeModel:
 
         n_input = current_input.get_shape().as_list()[3]
 
-        # B = tf.Variable(tf.zeros([n_output]))
-        # b_ = tf.Variable(tf.zeros([n_output]))
-        # t = current_input.get_shape().as_list()
-        # t[0] = batch_size;
-        # w = tf.Variable(tf.random_uniform((t),-1.0 / math.sqrt(n_input),1.0 / math.sqrt(n_input)))
-        # outputs[-1] = tf.multiply(tf.add(outputs[-1],B),lrelu(tf.add(tf.multiply(current_input,w),b_)))
-
         current_input = outputs[-1]
         z = current_input
         encoder.reverse()
@@ -78,25 +71,15 @@ class AELikeModel:
         outputs.reverse()
 
         for layer_i, shape in enumerate(shapes):
-            W = encoder[layer_i]
+            # W = encoder[layer_i]
+            W = tf.Variable(tf.random_uniform(encoder[layer_i].get_shape().as_list(),-1.0 / math.sqrt(n_input),1.0 / math.sqrt(n_input)))
+
             n_input = current_input.get_shape().as_list()[3]
+
             b = tf.Variable(tf.zeros([W.get_shape().as_list()[2]]))
 
-            if (layer_i < len(filter_sizes) - 1):
-
-#               B = tf.Variable(tf.zeros(n_filters[len(filter_sizes) - layer_i - 1]))
-#
-#               b_ = tf.Variable(tf.zeros(n_filters[len(filter_sizes) - layer_i - 1]))
-#
-#               w = tf.Variable(tf.random_uniform(shape=outputs[layer_i + 1].get_shape().as_list(),minval=-1.0 / math.sqrt(n_input),maxval=1.0 / math.sqrt(n_input)))
-#               k = tf.multiply(tf.add(outputs[layer_i + 1],B),lrelu(tf.add(tf.multiply(outputs[layer_i + 1],w),b_)))
-#               output = lrelu(tf.add(tf.nn.conv2d_transpose(outputs[layer_i],W,tf.stack([tf.shape(self.X)[0], shape[1], shape[2], shape[3]]),strides=[1, 2, 2, 1], padding='SAME'), b))
-#
-#               output = tf.add(k,output)
-
-                output = lrelu(tf.add(tf.add(tf.nn.conv2d_transpose(current_input,W,tf.stack([tf.shape(self.X)[0], shape[1], shape[2], shape[3]]),strides=[1, 2, 2, 1], padding='SAME'), b),outputs[layer_i + 1]))
-                # output = lrelu(tf.add(tf.nn.conv2d_transpose(outputs[layer_i],W,tf.stack([tf.shape(self.X)[0], shape[1], shape[2], shape[3]]),strides=[1, 2, 2, 1], padding='SAME'), b))
-
+            if (layer_i < len(filter_sizes)):
+                output = lrelu(tf.add(tf.nn.conv2d_transpose(tf.add(current_input,outputs[layer_i]),W,tf.stack([tf.shape(self.X)[0], shape[1], shape[2], shape[3]]),strides=[1, 2, 2, 1], padding='SAME'), b))
             else:
                 output = lrelu(tf.add(tf.nn.conv2d_transpose(current_input,W,tf.stack([tf.shape(self.X)[0], shape[1], shape[2], shape[3]]),strides=[1, 2, 2, 1], padding='SAME'), b))
 
