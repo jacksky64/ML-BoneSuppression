@@ -126,3 +126,5 @@ processed_data
 /.vs/ML-BoneSuppression
 /.vs/VSWorkspaceState.json
 /modelDigitec_2000
+/model1024
+/training_checkpoints

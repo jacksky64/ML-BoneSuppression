@@ -94,11 +94,11 @@ class AELikeModel:
 #
 #               output = tf.add(k,output)
 
-                output = lrelu(tf.add(tf.add(tf.nn.conv2d_transpose(outputs[layer_i],W,tf.stack([tf.shape(self.X)[0], shape[1], shape[2], shape[3]]),strides=[1, 2, 2, 1], padding='SAME'), b),outputs[layer_i + 1]))
+                output = lrelu(tf.add(tf.add(tf.nn.conv2d_transpose(current_input,W,tf.stack([tf.shape(self.X)[0], shape[1], shape[2], shape[3]]),strides=[1, 2, 2, 1], padding='SAME'), b),outputs[layer_i + 1]))
                 # output = lrelu(tf.add(tf.nn.conv2d_transpose(outputs[layer_i],W,tf.stack([tf.shape(self.X)[0], shape[1], shape[2], shape[3]]),strides=[1, 2, 2, 1], padding='SAME'), b))
 
             else:
-                output = lrelu(tf.add(tf.nn.conv2d_transpose(outputs[layer_i],W,tf.stack([tf.shape(self.X)[0], shape[1], shape[2], shape[3]]),strides=[1, 2, 2, 1], padding='SAME'), b))
+                output = lrelu(tf.add(tf.nn.conv2d_transpose(current_input,W,tf.stack([tf.shape(self.X)[0], shape[1], shape[2], shape[3]]),strides=[1, 2, 2, 1], padding='SAME'), b))
 
             current_input = output
 

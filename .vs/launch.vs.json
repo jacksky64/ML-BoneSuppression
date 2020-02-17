@@ -6,12 +6,12 @@
       "type": "python",
       "interpreter": "(default)",
       "interpreterArguments": "",
-      "scriptArguments": "--input i_01.png --output o_01.png",
+      "scriptArguments": "--model ./model/model --input i_01.png --output o_01.png",
       "env": {},
       "nativeDebug": false,
       "webBrowserUrl": "",
       "project": "test.py",
-      "name": "test.py"
+      "name": "test"
     },
     {
       "type": "python",
@@ -22,7 +22,7 @@
       "nativeDebug": false,
       "webBrowserUrl": "",
       "project": "preprocessing.py",
-      "name": "preprocessing.py"
+      "name": "preprocessing"
     },
     {
       "type": "python",
@@ -33,7 +33,18 @@
       "nativeDebug": false,
       "webBrowserUrl": "",
       "project": "preprocessing.py",
-      "name": "preprocessingOpt1024.py"
+      "name": "preprocessingOpt1024"
+    },
+    {
+      "type": "python",
+      "interpreter": "(default)",
+      "interpreterArguments": "",
+      "scriptArguments": "--config ./config/data_preprocessing_phantom_1024_local.cfg",
+      "env": {},
+      "nativeDebug": false,
+      "webBrowserUrl": "",
+      "project": "preprocessing.py",
+      "name": "preprocessingOpt1024_local"
     },
     {
       "type": "python",
@@ -66,7 +77,7 @@
       "nativeDebug": false,
       "webBrowserUrl": "",
       "project": "test.py",
-      "name": "testModel1024.py"
+      "name": "testModel1024"
     },
     {
       "type": "python",
@@ -77,7 +88,7 @@
       "nativeDebug": false,
       "webBrowserUrl": "",
       "project": "test.py",
-      "name": "testDigitec1440.py"
+      "name": "testDigitec1440"
     },
     {
       "type": "python",
@@ -99,7 +110,7 @@
       "nativeDebug": false,
       "webBrowserUrl": "",
       "project": "test.py",
-      "name": "test_Opt_1024.py"
+      "name": "test_Opt_1024"
     }
   ]
 }
